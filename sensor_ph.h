@@ -6,7 +6,7 @@
 #include "adc_util.h"
 
 // Kalibrasi pH mengikuti kode yang saat ini berjalan
-#define PH_SLOPE -5.70
+#define PH_SLOPE -7.95
 #define PH_CALIBRATION 21.24
 
 struct HasilPH {
