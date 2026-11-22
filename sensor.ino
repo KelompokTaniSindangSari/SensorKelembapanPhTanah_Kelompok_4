@@ -8,6 +8,7 @@
 #include "sensor_ph.h"
 #include "sensor_kelembapan.h"
 #include "evaluasi.h"
+#include "peringatan.h"
 #include "lcd_display.h"
 #include "cloud.h"
 
@@ -83,6 +84,13 @@ void sendSensor() {
         hasilPH.adc,
         hasilKelembapan.adc
     );
+
+    // =================================
+    // PERINGATAN (EVENT BLYNK)
+    // =================================
+
+    peringatanPH(hasilPH.ph, statusTanah);
+    peringatanKelembapan(hasilKelembapan.persen, statusKelembapan);
 
     // =================================
     // WIFI STATUS

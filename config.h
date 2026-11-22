@@ -23,4 +23,19 @@
 #define INTERVAL_SENSOR 1500L
 #define INTERVAL_LCD 3000UL
 
+// ================= BATAS PERINGATAN BLYNK =================
+// pH terlalu asam jika di bawah batas ini, terlalu basa jika di atasnya
+#define PH_PERINGATAN_ASAM 4.5
+#define PH_PERINGATAN_BASA 8.5
+
+// Kelembapan (%): kering banget jika di bawah, basah banget jika di atas
+#define LEMBAP_PERINGATAN_KERING 15
+#define LEMBAP_PERINGATAN_BASAH  90
+
+// Kondisi harus muncul berturut-turut sebelum peringatan dikirim
+#define PERINGATAN_KONFIRMASI 3
+
+// Peringatan diulang jika kondisi bertahan (30 menit)
+#define PERINGATAN_ULANG_MS 1800000UL
+
 #endif

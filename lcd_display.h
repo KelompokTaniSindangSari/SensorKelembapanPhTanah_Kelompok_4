@@ -41,7 +41,16 @@ void lcdStatus(String baris1, String baris2) {
     printLCDLine(1, baris2);
 }
 
-// Menampilkan 3 halaman: pH, kelembapan, dan ADC.
+// Menyingkat status supaya muat di LCD 16 karakter.
+String singkatStatus(String s) {
+    if (s == "Sangat Asam") return "Sgt Asam";
+    return s;
+}
+
+// Baris 1: pH + status, baris 2: kelembapan + status.
+// Contoh:
+//   pH:4,6 Asam
+//   Lmb:45% Normal
 void lcdTampilMonitoring(
     float ph,
     float volt,
@@ -51,28 +60,13 @@ void lcdTampilMonitoring(
     float adcPH,
     int adcMoisture
 ) {
-    static unsigned long lastLCDUpdate = 0;
-    static int halamanLCD = 0;
+    String phText = String(ph, 1);
+    phText.replace(".", ",");              // 4.6 -> 4,6
 
-    unsigned long sekarang = millis();
+    String lembapText = String(kelembapan, 0);
 
-    if (sekarang - lastLCDUpdate >= INTERVAL_LCD) {
-        lastLCDUpdate = sekarang;
-        halamanLCD = (halamanLCD + 1) % 3;
-    }
-
-    if (halamanLCD == 0) {
-        printLCDLine(0, "pH:" + String(ph, 2) + " " + String(volt, 2) + "V");
-        printLCDLine(1, "Status: " + statusPH);
-    }
-    else if (halamanLCD == 1) {
-        printLCDLine(0, "Moisture:" + String(kelembapan, 1) + "%");
-        printLCDLine(1, "Status: " + statusKelembapan);
-    }
-    else {
-        printLCDLine(0, "ADC pH:" + String(adcPH, 0));
-        printLCDLine(1, "ADC Air:" + String(adcMoisture));
-    }
+    printLCDLine(0, "pH:" + phText + " " + singkatStatus(statusPH));
+    printLCDLine(1, "Lmb:" + lembapText + "% " + statusKelembapan);
 }
 
 #endif
